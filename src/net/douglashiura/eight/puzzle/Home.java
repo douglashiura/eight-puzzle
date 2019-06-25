@@ -29,7 +29,7 @@ public class Home {
 		return moveTo(down);
 	}
 
-	private void setPiece(Integer piece) {
+	public void setPiece(Integer piece) {
 		this.piece = piece;
 	}
 
@@ -38,10 +38,14 @@ public class Home {
 	}
 
 	private Home moveTo(Home here) {
-		Integer piece = here.getPiece();
-		here.setPiece(getPiece());
-		setPiece(piece);
-		return here;
+		try {
+			Integer piece = here.getPiece();
+			here.setPiece(getPiece());
+			setPiece(piece);
+			return here;
+		} catch (BorderException e) {
+			return this;
+		}
 	}
 
 	public Home moveRight() {

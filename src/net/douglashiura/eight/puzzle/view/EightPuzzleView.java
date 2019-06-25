@@ -7,17 +7,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 import net.douglashiura.eight.puzzle.EightPuzzle;
 import net.douglashiura.eight.puzzle.Home;
+import net.douglashiura.eight.puzzle.helper.Listener;
+import net.douglashiura.eight.puzzle.simulated.annealing.EightPuzzleWithSimulateAnnealing;
 
 public class EightPuzzleView extends JFrame implements KeyListener {
 
 	private static final long serialVersionUID = 7501477593258854262L;
 	private EightPuzzle game;
 	private List<HomeView> houses;
+	private Listener listener;
 
 	public EightPuzzleView() {
+		listener = new UpdateView();
 		setTitle("Eight puzzle");
 		game = new EightPuzzle();
 		setSize(400, 400);
@@ -36,43 +41,70 @@ public class EightPuzzleView extends JFrame implements KeyListener {
 	}
 
 	public static void main(String[] args) {
-		new EightPuzzleView();
+		SwingUtilities.invokeLater(new Runnable() {
+
+			public void run() {
+				new EightPuzzleView();
+			}
+		});
+
 	}
 
 	@Override
-	public void keyTyped(KeyEvent e) {
-	}
+	public void keyTyped(KeyEvent e) {}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
+
 		switch (e.getKeyCode()) {
-		case KeyEvent.VK_LEFT:
-			game.moveLeft();
-			break;
-		case KeyEvent.VK_RIGHT:
-			game.moveRight();
-			break;
-		case KeyEvent.VK_UP:
-			game.moveUp();
-			break;
-		case KeyEvent.VK_DOWN:
-			game.moveDown();
-			break;
-		default:
-			break;
+			case KeyEvent.VK_F1:
+				new EightPuzzleWithSimulateAnnealing(game).untilSolve(listener);
+				break;
+			case KeyEvent.VK_F2:
+				new EightPuzzleWithSimulateAnnealing(game).solve(solve -> !solve, listener);
+				break;
+			case KeyEvent.VK_LEFT:
+				game.moveLeft();
+				break;
+			case KeyEvent.VK_RIGHT:
+				game.moveRight();
+				break;
+			case KeyEvent.VK_UP:
+				game.moveUp();
+				break;
+			case KeyEvent.VK_DOWN:
+				game.moveDown();
+				break;
+			default:
+				break;
 		}
 		updateHouses();
 
+	}
+
+	class UpdateView implements Listener {
+
+		@Override
+		public void update() {
+			updateHouses();
+		}
 	}
 
 	private void updateHouses() {
 		houses.forEach(house -> {
 			house.setValue();
 		});
+		setTitle(String.format("Eight puzzle (%s)", game.cost()));
+		update(getGraphics());
+		try {
+			Thread.sleep(0,10);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e) {
-	}
+	public void keyReleased(KeyEvent e) {}
 
 }

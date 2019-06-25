@@ -33,5 +33,10 @@ public abstract class Game {
 			return Math.abs(home.getPiece() - home.getIndex());
 		}).sum();
 	}
-
+	public Home getEmpty() {
+		return empty;
+	}
+	protected void setEmpty(Home empty) {
+		this.empty = empty;
+	}
 }

@@ -3,10 +3,13 @@ package test.net.douglashiura.eight.puzzle;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import net.douglashiura.eight.puzzle.Border;
+import net.douglashiura.eight.puzzle.BorderException;
 import net.douglashiura.eight.puzzle.Home;
 
 public class HomeTest {
@@ -59,6 +62,13 @@ public class HomeTest {
 		assertEquals(left, home.moveLeft());
 		assertEquals(new Integer(4), home.getPiece());
 		assertFalse(home.isOk());
+	}
+
+	@Test
+	void border() throws Exception {
+		assertThrows(BorderException.class, () -> {
+			new Border().getPiece();
+		});
 	}
 
 }

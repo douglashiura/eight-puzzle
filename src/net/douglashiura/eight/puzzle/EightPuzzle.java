@@ -17,16 +17,17 @@ public class EightPuzzle extends Game {
 		Home home7 = new Home(7);
 		Home home8 = new Home(8);
 		Home home9 = new Home(9);
-		home1.setNeighbordhood(null, null, home2, home4);
-		home2.setNeighbordhood(home1, null, home3, home5);
-		home3.setNeighbordhood(home2, null, null, home6);
-		home4.setNeighbordhood(null, home1, home5, home7);
+		Home border = new Border();
+		home1.setNeighbordhood(border, border, home2, home4);
+		home2.setNeighbordhood(home1, border, home3, home5);
+		home3.setNeighbordhood(home2, border, border, home6);
+		home4.setNeighbordhood(border, home1, home5, home7);
 		home5.setNeighbordhood(home4, home2, home6, home8);
-		home6.setNeighbordhood(home5, home3, null, home9);
-		home7.setNeighbordhood(null, home4, home8, null);
-		home8.setNeighbordhood(home7, home5, home9, null);
-		home9.setNeighbordhood(home8, home6, null, null);
-		
+		home6.setNeighbordhood(home5, home3, border, home9);
+		home7.setNeighbordhood(border, home4, home8, border);
+		home8.setNeighbordhood(home7, home5, home9, border);
+		home9.setNeighbordhood(home8, home6, border, border);
+
 		houses = new ArrayList<>(9);
 		houses.add(home1);
 		houses.add(home2);
@@ -47,6 +48,33 @@ public class EightPuzzle extends Game {
 
 	public Boolean isOk() {
 		return new Integer((int) houses.stream().filter(home -> home.isOk()).count()).equals(houses.size());
+	}
+
+	public EightPuzzle _clone() {
+		EightPuzzle clone = new EightPuzzle();
+		for (int i = 0; i < houses.size(); i++) {
+			try {
+				clone.getHouses().get(i).setPiece(houses.get(i).getPiece());
+			} catch (BorderException e) {
+				e.printStackTrace();
+			}
+		}
+		clone.setEmpty(clone.houses.get(houses.indexOf(getEmpty())));
+
+		return clone;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("%s	%s	%s\n%s	%s	%s\n%s	%s	%s\n ", houses.get(0).getPiece()
+				,houses.get(1).getPiece()
+				,houses.get(2).getPiece()
+				,houses.get(3).getPiece()
+				,houses.get(4).getPiece()
+				,houses.get(5).getPiece()
+				,houses.get(6).getPiece()
+				,houses.get(7).getPiece()
+				,houses.get(8).getPiece());
 	}
 
 }

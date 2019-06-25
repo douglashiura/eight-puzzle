@@ -13,6 +13,7 @@ import net.douglashiura.eight.puzzle.EightPuzzle;
 import net.douglashiura.eight.puzzle.Home;
 import net.douglashiura.eight.puzzle.helper.Listener;
 import net.douglashiura.eight.puzzle.simulated.annealing.EightPuzzleWithSimulateAnnealing;
+import net.douglashiura.eight.puzzle.simulated.annealing.EightPuzzleWithSimulateAnnealingWithStep;
 
 public class EightPuzzleView extends JFrame implements KeyListener {
 
@@ -38,6 +39,7 @@ public class EightPuzzleView extends JFrame implements KeyListener {
 		setFocusTraversalKeysEnabled(false);
 		addKeyListener(this);
 		setVisible(true);
+
 	}
 
 	public static void main(String[] args) {
@@ -58,7 +60,7 @@ public class EightPuzzleView extends JFrame implements KeyListener {
 
 		switch (e.getKeyCode()) {
 			case KeyEvent.VK_F1:
-				new EightPuzzleWithSimulateAnnealing(game).untilSolve(listener);
+				new EightPuzzleWithSimulateAnnealingWithStep(game).untilSolve(listener);
 				break;
 			case KeyEvent.VK_F2:
 				new EightPuzzleWithSimulateAnnealing(game).solve(solve -> !solve, listener);
@@ -87,6 +89,7 @@ public class EightPuzzleView extends JFrame implements KeyListener {
 		@Override
 		public void update() {
 			updateHouses();
+
 		}
 	}
 
@@ -97,11 +100,11 @@ public class EightPuzzleView extends JFrame implements KeyListener {
 		setTitle(String.format("Eight puzzle (%s)", game.cost()));
 		update(getGraphics());
 		try {
-			Thread.sleep(0,10);
+			Thread.sleep(0, 1);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@Override

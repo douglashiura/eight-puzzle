@@ -2,6 +2,7 @@ package net.douglashiura.eight.puzzle.view;
 
 import net.douglashiura.eight.puzzle.EightPuzzle;
 import net.douglashiura.eight.puzzle.simulated.annealing.EightPuzzleWithSimulateAnnealing;
+import net.douglashiura.eight.puzzle.simulated.annealing.EightPuzzleWithSimulateAnnealingWithStep;
 
 public class Main implements net.douglashiura.eight.puzzle.helper.Listener {
 
@@ -15,7 +16,7 @@ public class Main implements net.douglashiura.eight.puzzle.helper.Listener {
 		simulateAnnealing.solve(t -> !t, this);
 		System.out.println("Solving");
 		Thread.sleep(1000);
-		simulateAnnealing.untilSolve(this);
+		new EightPuzzleWithSimulateAnnealingWithStep(game).untilSolve(this);
 
 	}
 
@@ -24,6 +25,7 @@ public class Main implements net.douglashiura.eight.puzzle.helper.Listener {
 		System.out.println(game);
 
 	}
+
 	public static void main(String[] args) throws InterruptedException {
 		new Main();
 	}

@@ -1,11 +1,15 @@
 package net.douglashiura.eight.puzzle.view;
 
 import java.awt.GridLayout;
+import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
@@ -53,43 +57,48 @@ public class EightPuzzleView extends JFrame implements KeyListener {
 	}
 
 	@Override
-	public void keyTyped(KeyEvent e) {}
+	public void keyTyped(KeyEvent e) {
+	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 
 		switch (e.getKeyCode()) {
-			case KeyEvent.VK_F1:
-				new EightPuzzleWithSimulateAnnealingWithStep(game).untilSolve(listener);
-				break;
-			case KeyEvent.VK_F2:
-				new EightPuzzleWithSimulateAnnealing(game).solve(solve -> !solve, listener);
-				break;
-			case KeyEvent.VK_LEFT:
-				game.moveLeft();
-				break;
-			case KeyEvent.VK_RIGHT:
-				game.moveRight();
-				break;
-			case KeyEvent.VK_UP:
-				game.moveUp();
-				break;
-			case KeyEvent.VK_DOWN:
-				game.moveDown();
-				break;
-			default:
-				break;
+		case KeyEvent.VK_F1:
+			new EightPuzzleWithSimulateAnnealingWithStep(game).untilSolve(listener);
+			break;
+		case KeyEvent.VK_F2:
+			new EightPuzzleWithSimulateAnnealing(game).solve(solve -> !solve, listener);
+			break;
+		case KeyEvent.VK_LEFT:
+			game.moveLeft();
+			break;
+		case KeyEvent.VK_RIGHT:
+			game.moveRight();
+			break;
+		case KeyEvent.VK_UP:
+			game.moveUp();
+			break;
+		case KeyEvent.VK_DOWN:
+			game.moveDown();
+			break;
+		default:
+			break;
 		}
 		updateHouses();
 
 	}
 
 	class UpdateView implements Listener {
-
 		@Override
 		public void update() {
 			updateHouses();
-
+			try {
+				Robot robot = new Robot();
+				BufferedImage image = robot.createScreenCapture(getBounds());
+				ImageIO.write(image, "png", new File(System.currentTimeMillis() + "(" + game.cost() + ")" + ".png"));
+			} catch (Exception e) {
+			}
 		}
 	}
 
@@ -108,6 +117,7 @@ public class EightPuzzleView extends JFrame implements KeyListener {
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e) {}
+	public void keyReleased(KeyEvent e) {
+	}
 
 }

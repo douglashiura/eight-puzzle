@@ -3,10 +3,11 @@ package net.douglashiura.eight.puzzle.view;
 import java.awt.Font;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 
 import net.douglashiura.eight.puzzle.Home;
 
-public class HomeView extends JButton {
+public class HomeView extends JLabel {
 
 	private static final long serialVersionUID = 1L;
 	private Home home;
@@ -15,7 +16,7 @@ public class HomeView extends JButton {
 		this.home = home;
 		setValue();
 		addKeyListener(eightPuzzleView);
-		setFont( new Font("Arial", Font.PLAIN, 40));
+		setFont( new Font("Arial", Font.PLAIN, 10));
 	}
 
 	public void setValue() {

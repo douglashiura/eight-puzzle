@@ -30,7 +30,7 @@ public class EightPuzzleView extends JFrame implements KeyListener {
 		listener = new UpdateView();
 		setTitle("Eight puzzle");
 		game = new EightPuzzle();
-		setSize(400, 400);
+		setSize(90, 90);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLayout(new GridLayout(3, 3));
 		houses = new ArrayList<HomeView>(9);
@@ -94,8 +94,8 @@ public class EightPuzzleView extends JFrame implements KeyListener {
 		public void update() {
 			updateHouses();
 			try {
-				Robot robot = new Robot();
-				BufferedImage image = robot.createScreenCapture(getBounds());
+				BufferedImage image = new BufferedImage(getHeight(), getWidth(), 3);
+				print(image.getGraphics());
 				ImageIO.write(image, "png", new File(System.currentTimeMillis() + "(" + game.cost() + ")" + ".png"));
 			} catch (Exception e) {
 			}

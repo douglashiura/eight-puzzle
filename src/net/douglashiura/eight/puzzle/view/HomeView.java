@@ -2,7 +2,6 @@ package net.douglashiura.eight.puzzle.view;
 
 import java.awt.Font;
 
-import javax.swing.JButton;
 import javax.swing.JLabel;
 
 import net.douglashiura.eight.puzzle.Home;
@@ -16,11 +15,11 @@ public class HomeView extends JLabel {
 		this.home = home;
 		setValue();
 		addKeyListener(eightPuzzleView);
-		setFont( new Font("Arial", Font.PLAIN, 10));
+		setFont(new Font("Arial", Font.PLAIN, 10));
 	}
 
 	public void setValue() {
-		setText(home.getPiece().equals(new Integer(9)) ? "" : home.getPiece().toString());
+		setText(home.getPiece().equals(Integer.valueOf(9)) ? "" : home.getPiece().toString());
 		update(getGraphics());
 	}
 

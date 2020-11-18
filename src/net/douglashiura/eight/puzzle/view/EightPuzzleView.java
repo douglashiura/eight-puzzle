@@ -1,7 +1,6 @@
 package net.douglashiura.eight.puzzle.view;
 
 import java.awt.GridLayout;
-import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;

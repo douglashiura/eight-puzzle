@@ -47,7 +47,7 @@ public class EightPuzzle extends Game {
 	}
 
 	public Boolean isOk() {
-		return new Integer((int) houses.stream().filter(home -> home.isOk()).count()).equals(houses.size());
+		return Integer.valueOf((int) houses.stream().filter(home -> home.isOk()).count()).equals(houses.size());
 	}
 
 	public EightPuzzle _clone() {

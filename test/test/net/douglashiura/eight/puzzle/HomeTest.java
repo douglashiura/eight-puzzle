@@ -32,35 +32,35 @@ public class HomeTest {
 
 	@Test
 	void is() throws Exception {
-		assertEquals(new Integer(5), home.getPiece());
+		assertEquals(Integer.valueOf(5), home.getPiece());
 		assertTrue(home.isOk());
 	}
 
 	@Test
 	void moveDown() throws Exception {
 		assertEquals(down, home.moveDown());
-		assertEquals(new Integer(8), home.getPiece());
+		assertEquals(Integer.valueOf(8), home.getPiece());
 		assertFalse(home.isOk());
 	}
 
 	@Test
 	void moveUp() throws Exception {
 		assertEquals(top, home.moveUp());
-		assertEquals(new Integer(2), home.getPiece());
+		assertEquals(Integer.valueOf(2), home.getPiece());
 		assertFalse(home.isOk());
 	}
 
 	@Test
 	void moveRight() throws Exception {
 		assertEquals(right, home.moveRight());
-		assertEquals(new Integer(6), home.getPiece());
+		assertEquals(Integer.valueOf(6), home.getPiece());
 		assertFalse(home.isOk());
 	}
 
 	@Test
 	void moveLeft() throws Exception {
 		assertEquals(left, home.moveLeft());
-		assertEquals(new Integer(4), home.getPiece());
+		assertEquals(Integer.valueOf(4), home.getPiece());
 		assertFalse(home.isOk());
 	}
 
